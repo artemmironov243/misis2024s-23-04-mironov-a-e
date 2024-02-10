@@ -1,9 +1,9 @@
 #include <iostream>
 #include <complex/complex.hpp>
 int main() {
-	testParse("{8.9,9");
-	testParse("{8.9, 9");
-	testParse("{8.9,9");
+	testing("{8.9,9");
+	testing("{8, 9");
+	testing("{8.9.9,9");
 
 	Complex x, y;
 	double d;

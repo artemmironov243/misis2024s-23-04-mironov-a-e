@@ -3,8 +3,14 @@
 
 struct Complex {
 	Complex() {};
-	Complex(double re);
-	Complex(double re, double im);
+	Complex(double real);
+	Complex(double real, double imaginary);
+	Complex(const Complex& rhs);
+	Complex& operator=(const Complex& rhs) {
+		re = rhs.re;
+		im = rhs.im;
+		return *this;
+	}
 	~Complex() {};
 	bool operator ==(const Complex& rhs) const { return (re == rhs.re && im == rhs.im); }
 	bool operator != (const Complex& rhs) const { return !operator==(rhs); }
@@ -47,7 +53,8 @@ std::ostream& operator <<(std::ostream& ostrm, const Complex& rhs);
 
 bool testing(const std::string& str);
 
-bool operator==(const Complex& lhs, const double& rhs) { return ((lhs.im == 0) && (lhs.re == rhs.re)); }
-bool operator==(const double& lhs, const Complex& rhs) { return ((rhs.im == 0) && (lhs.re == rhs.re)); }
+bool operator==(const Complex& lhs, const double& rhs);
+bool operator==(const double& lhs, const Complex& rhs);
+
 
 

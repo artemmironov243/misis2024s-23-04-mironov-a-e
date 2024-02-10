@@ -2,6 +2,23 @@
 #include <sstream>
 #include <complex/complex.hpp>
 
+Complex::Complex(const double real)
+	: Complex(real, 0.0)
+{
+}
+
+Complex::Complex(const double real, const double imaginary)
+	: re(real)
+	, im(imaginary)
+{
+}
+
+Complex::Complex(const Complex& rhs)
+	: re(rhs.re)
+	, im(rhs.im)
+{
+}
+
 bool testing(const std::string& str)
 {
 	std::stringstream istrm(str);
@@ -29,7 +46,11 @@ std::istream& Complex::readFrom(std::istream& istrm, Complex& rhs) {
 			im = imag;
 			rhs = Complex(re, im);
 		}
+		else {
+			istrm.setstate(std::ios_base::failbit);
+		}
 	}
+	return istrm;
 }
 
 std::istream& operator>>(std::istream& istrm, Complex& rhs) {
@@ -63,7 +84,7 @@ Complex& Complex::operator*=(const Complex& rhs) {
 	return *this;
 }
 
-Complex& Complex::operator*=(const Complex& rhs) {
+Complex& Complex::operator/=(const Complex& rhs) {
 	double k;
 	k = re;
 	if ((rhs.im * rhs.im + rhs.re * rhs.re) == 0) {
@@ -146,3 +167,10 @@ Complex operator/(const Complex& lhs, const double& rhs) {
 	return del;
 }
 
+bool operator==(const double& rhs, const Complex& lhs) {
+	return false;
+}
+
+bool operator==(const Complex& rhs, const double& lhs) {
+	return false;
+}
