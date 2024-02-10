@@ -1,51 +1,55 @@
 #ifndef RATIONAL_HPP
 #define RATIONAL_HPP
 
-#include<iostream>
-#include<sstream>
-#include<cstdint>
+#include <iostream>
+#include <sstream>	
+#include <cstdint>
 
 class Rational {
 public:
-	Rational();
-	~Rational();
+	Rational() = default;
+	Rational(Rational&&) = default;
+	Rational(const Rational& rhs) = default;
+	~Rational() = default;
+	explicit Rational(const int64_t num);
 	Rational(const int64_t num, const int64_t denum);
-	Rational(Rational&);
-	Rational(const int64_t num);
 
+	int64_t num() const { return n_; }
+	int64_t den() const { return de_; }
+
+	Rational& operator=(Rational&&) = default;
+	Rational& operator=(const Rational& rhs);
+	Rational& operator=(const int64_t rhs) { return operator=(Rational(rhs)); }
 	Rational& operator+=(const Rational& rhs);
-	Rational& operator+=(const int64_t& rhs) { return operator+=(Rational(rhs)); }
+	Rational& operator+=(const int64_t rhs) { return operator+=(Rational(rhs)); }
 	Rational& operator-=(const Rational& rhs);
-	Rational& operator-=(const int64_t& rhs) { return operator-=(Rational(rhs)); }
+	Rational& operator-=(const int64_t rhs) { return operator-=(Rational(rhs)); }
 	Rational& operator*=(const Rational& rhs);
-	Rational& operator*=(const int64_t& rhs) { return operator*=(Rational(rhs)); }
+	Rational& operator*=(const int64_t rhs) { return operator*=(Rational(rhs)); }
 	Rational& operator/=(const Rational& rhs);
-	Rational& operator/=(const int64_t& rhs) { return operator/=(Rational(rhs)); }
+	Rational& operator/=(const int64_t rhs) { return operator/=(Rational(rhs)); }
 	Rational& operator++();
-	Rational operator--();
-	bool operator==(const Rational& rhs) { return (n_ == rhs.n_ && de_ == rhs.de_) || (n_ == 0 && rhs.n_ == 0) }
-	bool operator!= (const Rational& rhs) { return !operator==(rhs); }
+	Rational& operator--();
+	bool operator==(const Rational& rhs) const { return ((rhs.n_ == n_ && rhs.de_ == de_) || (rhs.n_ == 0 && n_ == 0)); }
+	bool operator!=(const Rational& rhs) const { return !operator==(rhs); }
 	std::ostream& writeTo(std::ostream& ostrm) const;
 	std::istream& readFrom(std::istream& istrm);
 
-	const char separator('/');
+	static const char separator{ '/' };
 
-	const int64_t& get_Num() { return n_; }
-	const int64_t& get_Den() { return d_; }
+	const int64_t& get_Num() const { return n_; }
+	const int64_t& get_Den() const { return de_; }
 
 private:
-
-	int64_t n_ = 0
-		int64_t de_ = 1
-		void cut_back(Rational&);
+	int64_t n_{ 0 };
+	int64_t de_{ 1 };
+	void cut_back();
 	int64_t NOD(int64_t x, int64_t y);
 	int64_t NOK(int64_t x, int64_t y);
 };
 
-
 std::ostream& operator<<(std::ostream& ostrm, const Rational& rhs);
 std::istream& operator>>(std::istream& istrm, Rational& rhs);
-
 
 Rational operator+(const Rational& lhs, const Rational& rhs);
 Rational operator+(const Rational& lhs, const int64_t& rhs);
@@ -62,6 +66,7 @@ Rational operator*(const int64_t& lhs, const Rational& rhs);
 Rational operator/(const Rational& lhs, const Rational& rhs);
 Rational operator/(const Rational& lhs, const int64_t& rhs);
 Rational operator/(const int64_t& lhs, const Rational& rhs);
+
 
 bool operator==(const Rational& lhs, const int64_t& rhs);
 bool operator==(const int64_t& lhs, const Rational& rhs);
