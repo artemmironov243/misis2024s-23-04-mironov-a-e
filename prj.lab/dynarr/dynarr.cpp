@@ -67,8 +67,12 @@ DynArr::~DynArr() {
 
 DynArr& DynArr::operator=(const DynArr& arr) {
 	delete[] data_;
-	data_ = new float[arr.size_];
 	size_ = arr.size_;
+	capasity = size_ * 2;
+	data_ = new float[capasity] {};
+	for (int i = 0; i < size_; i++) {
+		data_[i] = arr.data_[i];
+	}
 	return *this;
 }
 
