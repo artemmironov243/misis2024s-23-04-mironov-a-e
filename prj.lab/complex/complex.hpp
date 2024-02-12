@@ -1,3 +1,6 @@
+#ifndef COMPLEX_COMPLEX_HPP
+#define COMPLEX_COMPLEX__HPP
+
 #include <iostream>
 #include <sstream>
 
@@ -56,5 +59,5 @@ bool testing(const std::string& str);
 bool operator==(const Complex& lhs, const double& rhs);
 bool operator==(const double& lhs, const Complex& rhs);
 
-
+#endif 
 
