@@ -1,8 +1,8 @@
-#include <stacklst/stacklst.hpp>
+/*#include <stacklst/stacklst.hpp>
 
 StackLst::StackLst() {
 	head_ = nullptr;
-	size = 0;
+	size_ = 0;
 }
 
 StackLst::~StackLst() {
@@ -12,7 +12,7 @@ StackLst::~StackLst() {
 }
 
 bool StackLst::IsEmpty() {
-	if (size == 0) {
+	if (size_ == 0) {
 		return true;
 	}
 	return false;
@@ -32,7 +32,7 @@ void StackLst::Pop() {
 		size_ -= 1;
 
 	}
-	else if(size = 1){
+	else if(size_ = 1){
 		delete[] head_;
 		head_ = nullptr;
 		size_ = 0;
@@ -40,9 +40,9 @@ void StackLst::Pop() {
 }
 
 void StackLst::Push(const Complex& val) {
-	Node* head = new Complex[];
+	StackLst::Node* head = new StackLst::Node[];
 	head->value = val;
-	if (size != 0) {
+	if (size_ != 0) {
 		head->next = head_;
 	}
 	head_ = head;
@@ -53,7 +53,7 @@ StackLst& StackLst::operator=(const StackLst& lst) {
 	StackLst time;
 	Node* head = lst.head_;
 	for (int i = 0; i < lst.size_; i++) {
-		time->Push(head->value);
+		time.Push(head->value);
 		head = head->next;
 	}
 	head = time.head_;
@@ -67,10 +67,8 @@ StackLst& StackLst::operator=(const StackLst& lst) {
 void StackLst::Clear() {
 	if (size > 0) {
 		for (i = 0; i < size; i++)
-			*this->Pop();
+			this->Pop();
 	}
 }
 
-StackLst(const StackLst& lst) {
-	*this = lst;
-}
+*/

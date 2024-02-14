@@ -6,9 +6,9 @@ class StackLst {
 public:
 	StackLst();
 
-	StackLst(const StackLst& lst) = default;
+	StackLst(const StackLst& lst) = default;;
 
-	~StackLst()
+	~StackLst();
 
 	void Pop();
 	 
@@ -24,12 +24,8 @@ public:
 
 private:
 	struct Node {
-		Node() {
-			next = nullptr;
-		};
 		Complex value;
-		Node* next = nullptr;
-		
+		Node* next = nullptr;	
 	};
 
 	Node* head_ = nullptr;

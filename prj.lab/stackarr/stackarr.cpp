@@ -43,7 +43,7 @@ StackArr::~StackArr() {
 }
 
 bool StackArr::IsEmpty() const noexcept {
-	if (i_top_ > 0) {
+	if (i_top_ > -1) {
 		return false;
 	}
 	return true;
