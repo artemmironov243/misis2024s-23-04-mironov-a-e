@@ -1,5 +1,6 @@
 #include <stacklst/stacklst.hpp>
 #include <vector>
+#include <iostream>
 
 StackLst::StackLst() {
 	head_ = nullptr;
@@ -20,7 +21,7 @@ StackLst::StackLst(const StackLst& lst) {
 }
 
 StackLst::~StackLst() {
-	delete[] head_;
+	delete head_;
 	head_ = nullptr;
 	size_ = 0;
 }
@@ -42,12 +43,12 @@ void StackLst::Pop() {
 	if (size_ > 1) {
 		Node* data = head_;
 		head_ = head_-> next;
-		delete[] data;
+		delete data;
 		size_ -= 1;
 
 	}
-	else if(size_ = 1){
-		delete[] head_;
+	else if (size_ == 1) {
+		delete head_;
 		head_ = nullptr;
 		size_ = 0;
 	}
@@ -82,8 +83,8 @@ StackLst& StackLst::operator=(const StackLst& lst) {
 }
 
 void StackLst::Clear() {
-	if (size_ > 0) {
-		for (int i = 0; i < size_; i++)
-			this->Pop();
+	std::ptrdiff_t size = size_;
+	for (int i = 0; i < size; i++) {
+		Pop();
 	}
 }

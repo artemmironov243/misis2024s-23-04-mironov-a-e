@@ -9,7 +9,7 @@ TEST_CASE("stackarr IsEmpty") {
     arr.Push(x);
     CHECK_EQ(arr.IsEmpty(), false);
     arr.Pop();
-    CHECK_EQ(arr.IsEmpty(), true );
+    CHECK_EQ(arr.IsEmpty(), true);
 }
 
 TEST_CASE("Clear") {
@@ -19,7 +19,7 @@ TEST_CASE("Clear") {
     arr.Push(x);
     CHECK_EQ(arr.IsEmpty(), false);
     arr.Clear();
-    CHECK_EQ(arr.IsEmpty(),true);
+    CHECK_EQ(arr.IsEmpty(), true);
 }
 
 TEST_CASE("Is Top") {

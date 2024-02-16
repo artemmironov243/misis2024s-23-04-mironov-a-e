@@ -24,12 +24,14 @@ public:
 	bool IsEmpty();
 
 	void Clear();
+	
 
 private:
 	struct Node {
 		Complex value;
 		Node* next = nullptr;	
 	};
+
 
 	Node* head_ = nullptr;
 	std::ptrdiff_t size_ = 0;
