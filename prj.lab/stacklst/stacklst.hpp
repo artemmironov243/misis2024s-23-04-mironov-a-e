@@ -1,12 +1,15 @@
+#pragma once
+#ifndef STACKLST_STACKLST_HPP_20240203
+#define STACKLST_STACKLST_HPP_20240203
+
 #include <cstddef>
 #include <complex/complex.hpp>
-#include <cstddef> 
 
 class StackLst {
 public:
 	StackLst();
 
-	StackLst(const StackLst& lst) = default;;
+	StackLst(const StackLst& lst);
 
 	~StackLst();
 
@@ -31,3 +34,5 @@ private:
 	Node* head_ = nullptr;
 	std::ptrdiff_t size_ = 0;
 };
+
+#endif

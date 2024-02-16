@@ -1,8 +1,22 @@
-/*#include <stacklst/stacklst.hpp>
+#include <stacklst/stacklst.hpp>
+#include <vector>
 
 StackLst::StackLst() {
 	head_ = nullptr;
 	size_ = 0;
+}
+
+StackLst::StackLst(const StackLst& lst) {
+	size_ = lst.size_;
+	Node* head = lst.head_;
+	std::vector<Complex> vec;
+	for (int i = 0; i < size_; i++) {
+		vec.push_back(head->value);
+		head = head->next;
+	}
+	for (int i = size_ - 1; i >= 0; i--) {
+		Push(vec[i]);
+	}
 }
 
 StackLst::~StackLst() {
@@ -40,10 +54,13 @@ void StackLst::Pop() {
 }
 
 void StackLst::Push(const Complex& val) {
-	StackLst::Node* head = new StackLst::Node[];
+	Node* head = new Node;
 	head->value = val;
 	if (size_ != 0) {
 		head->next = head_;
+	}
+	else {
+		head->next = nullptr;
 	}
 	head_ = head;
 	size_ += 1;
@@ -58,17 +75,15 @@ StackLst& StackLst::operator=(const StackLst& lst) {
 	}
 	head = time.head_;
 	for (int i = 0; i < lst.size_; i++) {
-		*this->Push(head->value);
+		Push(head->value);
 		head = head->next;
 	}
 	return *this;
 }
 
 void StackLst::Clear() {
-	if (size > 0) {
-		for (i = 0; i < size; i++)
+	if (size_ > 0) {
+		for (int i = 0; i < size_; i++)
 			this->Pop();
 	}
 }
-
-*/
