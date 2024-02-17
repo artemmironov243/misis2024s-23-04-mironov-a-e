@@ -2,7 +2,7 @@
 #include <string>
 
 int main() {
-    int n = 0, k = 0, i = o, t = 0;
+    int n = 0, k = 0, i = 0, t = 0;
     std::cin >> t;
     while (t--) {
         std::cin >> n >> k;
