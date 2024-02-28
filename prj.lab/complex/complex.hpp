@@ -26,6 +26,7 @@ struct Complex {
 	Complex& operator*=(const double rhs) { return operator*=(Complex(rhs)); }
 	Complex& operator/=(const Complex& rhs);
 	Complex& operator/=(const double rhs) { return operator/=(Complex(rhs)); }
+
 	std::istream& readFrom(std::istream& istrm, Complex& rhs);
 
 	double re{ 0.0 };
@@ -52,7 +53,7 @@ Complex operator/(const Complex& lhs, const Complex& rhs);
 Complex operator/(const Complex& lhs, const double& rhs);
 Complex operator/(const double& lhs, const Complex& rhs);
 
-std::istream& operator >>(std::istream& istrm, Complex& rhs);
+std::istream& operator>>(std::istream& istrm, Complex& rhs);
 std::ostream& operator <<(std::ostream& ostrm, const Complex& rhs);
 
 bool testing(const std::string& str);
