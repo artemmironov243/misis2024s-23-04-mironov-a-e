@@ -1,3 +1,4 @@
+#pragma once
 #ifndef COMPLEX_COMPLEX_HPP
 #define COMPLEX_COMPLEX__HPP
 
