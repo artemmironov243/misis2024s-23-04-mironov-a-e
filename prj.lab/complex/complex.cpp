@@ -33,33 +33,29 @@ bool testing(const std::string& str)
 	return istrm.good();
 }
 
-std::istream& Complex::readFrom(std::istream& istrm, Complex& rhs) {
-	char leftBrace = '{';
-	double real = 0.0;
-	char comma = '.';
-	double imag = 0.0;
-	char rightBrace = '}';
-	istrm >> leftBrace >> re >> comma >> im >> rightBrace;
+std::ostream& Complex::writeTo(std::ostream& ostrm) const {
+	ostrm << leftBrace << re << separator << im << rightBrace;
+	return ostrm;
+}
+
+std::istream& Complex::readFrom(std::istream& istrm) {
+	char leftBrace(0);
+	double real(0.0);
+	char comma(0);
+	double imaginary(0.0);
+	char rightBrace(0);
+	istrm >> leftBrace >> real >> comma >> imaginary >> rightBrace;
 	if (istrm.good()) {
-		if ((Complex::leftbrace == leftBrace) && (Complex::separator == comma) && (Complex::rightbrace == rightBrace)) {
+		if ((Complex::leftBrace == leftBrace) && (Complex::separator == comma) &&
+			(Complex::rightBrace == rightBrace)) {
 			re = real;
-			im = imag;
-			rhs = Complex(re, im);
+			im = imaginary;
 		}
 		else {
 			istrm.setstate(std::ios_base::failbit);
 		}
 	}
 	return istrm;
-}
-
-std::istream& operator>>(std::istream& istrm, Complex& rhs) {
-	return rhs.readFrom(istrm, rhs);
-}
-
-std::ostream& operator<<(std::ostream& ostrm, const Complex& rhs) {
-	ostrm << rhs.leftbrace << rhs.re << rhs.separator << rhs.im << rhs.rightbrace;
-	return ostrm;
 }
 
 Complex& Complex::operator+=(const Complex& rhs) {

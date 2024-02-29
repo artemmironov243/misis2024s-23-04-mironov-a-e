@@ -27,14 +27,16 @@ struct Complex {
 	Complex& operator/=(const Complex& rhs);
 	Complex& operator/=(const double rhs) { return operator/=(Complex(rhs)); }
 
-	std::istream& readFrom(std::istream& istrm, Complex& rhs);
+	std::ostream& writeTo(std::ostream& ostrm) const;
+	std::istream& readFrom(std::istream& istrm);
+
 
 	double re{ 0.0 };
 	double im{ 0.0 };
 
-	static const char leftbrace{ '{' };
+	static const char leftBrace{ '{' };
 	static const char separator{ '.' };
-	static const char rightbrace{ '}' };
+	static const char rightBrace{ '}' };
 };
 
 Complex operator+(const Complex& lhs, const Complex& rhs);
@@ -53,8 +55,12 @@ Complex operator/(const Complex& lhs, const Complex& rhs);
 Complex operator/(const Complex& lhs, const double& rhs);
 Complex operator/(const double& lhs, const Complex& rhs);
 
-std::istream& operator>>(std::istream& istrm, Complex& rhs);
-std::ostream& operator <<(std::ostream& ostrm, const Complex& rhs);
+inline std::ostream& operator<<(std::ostream& os, const Complex& complex) {
+	return complex.writeTo(os);
+};
+inline std::istream& operator>>(std::istream& is, Complex& complex) {
+	return complex.readFrom(is);
+};
 
 bool testing(const std::string& str);
 
