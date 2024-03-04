@@ -1,34 +1,32 @@
 #pragma once
-#ifndef STACKARR_STACKARR_HPP_20240203
-#define STACKARR_STACKARR_HPP_20240203
+#ifndef STACKARR_H
+#define STACKARR_H
 
-#include <cstddef>
-#include<complex/complex.hpp>
+#include <complex/complex.hpp>
 
 class StackArr {
 public:
-	StackArr();
+    StackArr();
+    StackArr(const StackArr& other);
+    StackArr(const Complex& head);
+    StackArr& operator=(const StackArr& other);
+    ~StackArr();
 
-	StackArr(const StackArr& arr);
-
-	~StackArr();
-
-	StackArr& operator=(const StackArr& arr);
-
-	bool IsEmpty() const noexcept;
-
-	void Pop() noexcept;
-
-	void Push(const Complex& val);
-
-	Complex& Top();
-
-	void Clear() noexcept;
+    void Pop() noexcept;
+    void Push(const Complex& value);
+    void Clear() noexcept {
+        size_ = 0;
+        head_ = nullptr;
+    };
+    bool IsEmpty() const noexcept { return size_ == 0; };
+    const Complex& Top() const;
+    Complex& Top();
 
 private:
-	std::ptrdiff_t size_ = 0;   //!< число элементов в буфере
-	std::ptrdiff_t i_top_ = -1; //!< индекс top элемента
-	Complex* data_ = nullptr;   //!< элементы стека
+    Complex* data_ = nullptr;
+    Complex* head_ = nullptr;
+    ptrdiff_t size_ = 0;
+    ptrdiff_t capacity_ = 0;
 };
 
-#endif // !STACKARR_STACKARR_HPP_20240203
+#endif

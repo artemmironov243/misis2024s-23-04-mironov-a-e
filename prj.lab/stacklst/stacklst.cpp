@@ -1,90 +1,91 @@
 #include <stacklst/stacklst.hpp>
-#include <vector>
-#include <iostream>
 
-StackLst::StackLst() {
-	head_ = nullptr;
-	size_ = 0;
-}
+bool StackLst::IsEmpty() const noexcept { return head_ == nullptr; }
 
-StackLst::StackLst(const StackLst& lst) {
-	size_ = lst.size_;
-	Node* head = lst.head_;
-	std::vector<Complex> vec;
-	for (int i = 0; i < size_; i++) {
-		vec.push_back(head->value);
-		head = head->next;
-	}
-	for (int i = size_ - 1; i >= 0; i--) {
-		Push(vec[i]);
-	}
-}
-
-StackLst::~StackLst() {
-	delete head_;
-	head_ = nullptr;
-	size_ = 0;
-}
-
-bool StackLst::IsEmpty() {
-	if (size_ == 0) {
-		return true;
-	}
-	return false;
+const Complex& StackLst::Top() const {
+    if (!IsEmpty()) {
+        return head_->data;
+    }
+    throw(std::logic_error("The stack is currently empty!"));
 }
 
 Complex& StackLst::Top() {
-	if (head_ != nullptr) {
-		return head_->value;
-	}
+    if (!IsEmpty()) {
+        return head_->data;
+    }
+    throw(std::logic_error("The stack is currently empty!"));
 }
 
-void StackLst::Pop() {
-	if (size_ > 1) {
-		Node* data = head_;
-		head_ = head_-> next;
-		delete data;
-		size_ -= 1;
-
-	}
-	else if (size_ == 1) {
-		delete head_;
-		head_ = nullptr;
-		size_ = 0;
-	}
+void StackLst::Push(const Complex& value) {
+    Node* new_node = new Node;
+    new_node->data = value;
+    new_node->next = head_;
+    head_ = new_node;
 }
 
-void StackLst::Push(const Complex& val) {
-	Node* head = new Node;
-	head->value = val;
-	if (size_ != 0) {
-		head->next = head_;
-	}
-	else {
-		head->next = nullptr;
-	}
-	head_ = head;
-	size_ += 1;
+void StackLst::Pop() noexcept {
+    if (IsEmpty()) return;
+
+    Node* temp_node = head_;
+    head_ = temp_node->next;
+    delete temp_node;
 }
 
-StackLst& StackLst::operator=(const StackLst& lst) {
-	StackLst time;
-	Node* head = lst.head_;
-	for (int i = 0; i < lst.size_; i++) {
-		time.Push(head->value);
-		head = head->next;
-	}
-	head = time.head_;
-	for (int i = 0; i < lst.size_; i++) {
-		Push(head->value);
-		head = head->next;
-	}
-	return *this;
+StackLst::StackLst(const Complex& head) : head_{ new Node } {
+    head_->data = head;
 }
 
-void StackLst::Clear() {
-	std::ptrdiff_t size = size_;
-	for (int i = 0; i < size; i++) {
-		Pop();
-	}
+StackLst::StackLst(const StackLst& other) : head_{ nullptr } {
+    if (!other.IsEmpty()) {
+        head_ = new Node;
+        head_->data = other.head_->data;
+        Node* temp = other.head_;
+        Node* prev = head_;
+        while (temp->next != nullptr) {
+            temp = temp->next;
+            Node* curr = new Node;
+            prev->next = curr;
+            curr->data = temp->data;
+            prev = curr;
+        }
+    }
+}
+
+StackLst& StackLst::operator=(const StackLst& other) {
+    Node* curr = head_;
+    Node* curr_other = other.head_;
+    while (curr_other != nullptr) {
+        if (curr->next == nullptr) {
+            curr->next = new Node;
+        }
+        curr->data = curr_other->data;
+
+        curr = curr->next;
+        curr_other = curr_other->next;
+    }
+    if (curr_other == nullptr && curr != nullptr) {
+        while (curr->next != nullptr) {
+            Node* temp = curr->next;
+            delete curr;
+            curr = temp;
+        }
+        head_->next = nullptr;
+    }
+    return *this;
+}
+
+StackLst::~StackLst() {
+    while (head_ != nullptr) {
+        Node* temp = head_->next;
+        delete head_;
+        head_ = temp;
+    }
+}
+
+void StackLst::Clear() noexcept {
+    while (head_ != nullptr) {
+        Node* temp = head_->next;
+        delete head_;
+        head_ = temp;
+    }
 }

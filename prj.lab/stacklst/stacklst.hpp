@@ -1,40 +1,31 @@
 #pragma once
-#ifndef STACKLST_STACKLST_HPP_20240203
-#define STACKLST_STACKLST_HPP_20240203
+#ifndef STACKLST_H
+#define STACKLST_H
 
-#include <cstddef>
 #include <complex/complex.hpp>
 
 class StackLst {
 public:
-	StackLst();
+    StackLst() = default;
+    StackLst(const StackLst& other);
+    StackLst(const Complex& head);
+    StackLst& operator=(const StackLst& other);
+    ~StackLst();
 
-	StackLst(const StackLst& lst);
-
-	~StackLst();
-
-	void Pop();
-	 
-	void Push(const Complex& val);
-
-	Complex& Top();
-
-	StackLst& operator=(const StackLst& lst);
-
-	bool IsEmpty();
-
-	void Clear();
-	
+    void Pop() noexcept;
+    void Push(const Complex& value);
+    Complex& Top();
+    const Complex& Top() const;
+    bool IsEmpty() const noexcept;
+    void Clear() noexcept;
 
 private:
-	struct Node {
-		Complex value;
-		Node* next = nullptr;	
-	};
+    struct Node {
+        Complex data;
+        Node* next = nullptr;
+    };
 
-
-	Node* head_ = nullptr;
-	std::ptrdiff_t size_ = 0;
+    Node* head_ = nullptr;
 };
 
 #endif

@@ -1,89 +1,92 @@
-#include <dynarr/dynarr.hpp>
-#include <iostream>
+#include "dynarr.hpp"
 
-DynArr::DynArr() {
-	size_ = 0;
-	data_ = nullptr;
-	capasity = 0;
+DynArr::DynArr(const ptrdiff_t size)
+    : size_{ size }, capacity_{ 2 * size }, data_{ nullptr } {
+    data_ = new float[2 * size];
+    if (size <= 0) {
+        throw std::invalid_argument("Size should be a positive number");
+    }
+    else {
+        for (float* idx = data_; idx < data_ + capacity_; idx++) {
+            *idx = 0;
+        }
+    }
 }
 
-DynArr::DynArr(const DynArr& arr) {
-	size_ = arr.size_;
-	capasity = arr.capasity;
-	if (arr.size_ != 0) {
-		data_ = new float[arr.size_];
-		for (int i = 0; i < arr.size_; i++) {
-			data_[i] = arr.data_[i];
-		}
-	}
-	else {
-		data_ = 0;
-	}
+DynArr::DynArr(const DynArr& rhs)
+    : data_{ nullptr }, size_{ rhs.size_ }, capacity_{ rhs.capacity_ } {
+    data_ = new float[capacity_];
+    std::copy(rhs.data_, rhs.data_ + rhs.capacity_, data_);
 }
 
-DynArr::DynArr(const std::ptrdiff_t size) {
-	capasity = 0;
-	size_ = 0;
-	if (size < 0) {
-		throw std::overflow_error("Size can not be less than 0");
-	}
-	else if (size == 0) {
-		capasity = 0;
-		data_ = 0;
-		size_ = 0;
-	}
-	else {
-		capasity = size;
-		size_ = size;
-		data_ = new float[size_] {};
-	}
-}
-
-void DynArr::Resize(const std::ptrdiff_t size) {
-	if (capasity < size) {
-		std::ptrdiff_t new_capacity = 0;
-		if (size > size_ * 2) {
-			new_capacity = size;
-		}
-		else {
-			new_capacity = size_ * 2;
-		}
-		float* new_data = new float[new_capacity] {};
-		for (int i = 0; i < size_; i++) {
-			new_data[i] = data_[i];
-		}
-		delete[] data_;
-		data_ = new_data;
-		capasity = new_capacity;
-	}
-	size_ = size;
+DynArr::DynArr(std::initializer_list<float> il) {
+    size_ = il.size();
+    capacity_ = 2 * il.size();
+    data_ = new float[capacity_];
+    for (auto i = il.begin(); i < il.end(); i++) {
+        *(data_ + (i - il.begin())) = *(i);
+    }
 }
 
 DynArr::~DynArr() {
-	if (data_) {
-		delete[] data_;
-	}
+    delete[] data_;
+    data_ = nullptr;
 }
 
-DynArr& DynArr::operator=(const DynArr& arr) {
-	delete[] data_;
-	size_ = arr.size_;
-	capasity = size_ * 2;
-	data_ = new float[capasity] {};
-	for (int i = 0; i < size_; i++) {
-		data_[i] = arr.data_[i];
-	}
-	return *this;
+float& DynArr::operator[](const ptrdiff_t idx) {
+    if (idx < 0)
+        throw std::invalid_argument("Index shouldn't be a negative number");
+    else if (idx >= size_)
+        throw std::out_of_range("Index out of range");
+    return *(data_ + idx);
+}
+const float& DynArr::operator[](const ptrdiff_t idx) const {
+    if (idx < 0)
+        throw std::invalid_argument("Index shouldn't be a negative number");
+    else if (idx >= size_)
+        throw std::out_of_range("Index out of range");
+    return *(data_ + idx);
 }
 
-float& DynArr::operator[](std::ptrdiff_t idx) {
-	if (idx >= size_ || 0 > idx) {
-		throw std::out_of_range("index out of range");
-	}
-	return data_[idx];
+DynArr& DynArr::operator=(const DynArr& rhs) {
+    if (this == &rhs) {
+        return *this;
+    }
+    this->Resize(rhs.size_);
+    for (float* i = data_; i < data_ + capacity_; i++)
+        *(i) = *(rhs.data_ + (i - data_));
+    return *this;
 }
 
-void DynArr::Push_back(float val) noexcept {
-	DynArr::Resize(size_ + 1);
-	data_[size_ - 1] = val;
+void DynArr::Resize(const ptrdiff_t size) {
+    if (size <= 0)
+        throw std::invalid_argument("Size should be a positive number");
+    else if (size < size_) {
+        for (float* i = data_; i < data_ + size_; i++) {
+            if (i >= data_ + size) *i = 0;
+        }
+    }
+    else if (size > capacity_) {
+        float* temp = new float[2 * size];
+        for (float* i = temp; i < temp + 2 * size; i++) {
+            if (i - temp < size_)
+                *i = *(data_ + (i - temp));
+            else
+                *i = 0;
+        }
+        delete[] data_;
+        data_ = temp;
+        capacity_ = 2 * size;
+    }
+    size_ = size;
+}
+
+std::ostream& operator<<(std::ostream& ostrm, const DynArr& rhs) {
+    return rhs.Print(ostrm);
+}
+
+std::ostream& DynArr::Print(std::ostream& ostrm) const {
+    for (float* i = data_; i < data_ + size_; i++) ostrm << (*i) << ' ';
+    ostrm << '\n';
+    return ostrm;
 }

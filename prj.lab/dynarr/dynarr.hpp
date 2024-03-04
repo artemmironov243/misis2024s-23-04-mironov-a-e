@@ -1,38 +1,34 @@
 #pragma once
-#ifndef DYNARR_DYNARR_HPP_20231203
-#define DYNARR_DYNARR_HPP_20231203
+#ifndef DYNARR_HPP
+#define DYNARR_HPP
 
-#include <cstddef>
+#include <cstdint>
+#include <iostream>
 #include <sstream>
-
 
 class DynArr {
 public:
-	DynArr();
-
-	DynArr(const DynArr& arr);
-
-	DynArr(const std::ptrdiff_t size);
-
+	DynArr() = default;
+	DynArr(const DynArr& rhs);
+	DynArr(const ptrdiff_t size);
+	DynArr(std::initializer_list<float> il);
 	~DynArr();
 
-	DynArr& operator=(const DynArr& arr);
+	DynArr& operator=(const DynArr& rhs);
 
-	std::ptrdiff_t Size() const noexcept { return size_; }
-
-	//! \param size - новый размер, 0 < size
-	void Resize(const std::ptrdiff_t size);
-
-	void Push_back(float val) noexcept;
-
-	float& operator[](const std::ptrdiff_t idx);
-
-	const float& operator[](const std::ptrdiff_t idx) const { return *(data_ + idx); }
+	ptrdiff_t Size() const { return size_; }
+	ptrdiff_t Capacity() const { return capacity_; }
+	void Resize(const ptrdiff_t size);
+	float& operator[](const ptrdiff_t idx);
+	const float& operator[](const ptrdiff_t idx) const;
+	std::ostream& Print(std::ostream& ostrm) const;
 
 private:
-	std::ptrdiff_t size_ = 0; //!< число элементов в массиве
-	float *data_ = nullptr;//!< элементы массива
-	std::ptrdiff_t capasity = 0;
+	float* data_ = nullptr;
+	ptrdiff_t size_ = 0;
+	ptrdiff_t capacity_ = 0;
 };
+
+std::ostream& operator<<(std::ostream& ostrm, const DynArr& rhs);
 
 #endif
