@@ -23,7 +23,7 @@ TEST_CASE("Testing DynArr class") {
 
     SUBCASE("Testing out of range") {
         CHECK_THROWS_AS(arr[arr.Size()], std::out_of_range);
-        CHECK_THROWS_AS(arr[-1], std::out_of_range);
+        CHECK_THROWS_AS(arr[-1], std::invalid_argument);
         CHECK_THROWS_AS(arr[arr.Size() + 1], std::out_of_range);
     }
 
