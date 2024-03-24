@@ -9,7 +9,9 @@ public:
     StackArr();
     StackArr(const StackArr& other);
     StackArr(const Complex& head);
+    StackArr(StackArr&& other) noexcept;
     StackArr& operator=(const StackArr& other);
+    StackArr& operator=(StackArr&& other) noexcept;
     ~StackArr();
 
     void Pop() noexcept;

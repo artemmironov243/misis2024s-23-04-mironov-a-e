@@ -10,10 +10,12 @@ public:
 	Rational();
 	Rational(const Rational&) = default;
 	Rational(int64_t num, int64_t den);
+	Rational(Rational&&) = default;
 	Rational(int64_t num) : num_{ num }, den_{ 1 } {};
 	~Rational() = default;
 
 	Rational operator-() const { return Rational(-num_, den_); }
+	Rational& operator=(Rational&&) = default;
 
 	Rational& operator=(const Rational& rhs);
 	Rational& operator=(const int64_t rhs);

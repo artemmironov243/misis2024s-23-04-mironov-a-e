@@ -10,10 +10,13 @@ public:
     StackLst(const StackLst& other);
     StackLst(const Complex& head);
     StackLst& operator=(const StackLst& other);
+    StackLst(StackLst&& other) noexcept;
     ~StackLst();
 
     void Pop() noexcept;
     void Push(const Complex& value);
+    StackLst& operator=(StackLst&& other) noexcept;
+
     Complex& Top();
     const Complex& Top() const;
     bool IsEmpty() const noexcept;

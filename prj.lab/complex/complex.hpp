@@ -12,6 +12,8 @@ struct Complex {
 	[[nodiscard]] Complex(const Complex&);
 	[[nodiscard]] explicit Complex(const double real);
 	[[nodiscard]] Complex(const double real, const double imaginary);
+	Complex(Complex&&) = default;
+	Complex& operator=(Complex&&) = default;
 
 	Complex& operator=(const Complex& other);
 	~Complex() = default;

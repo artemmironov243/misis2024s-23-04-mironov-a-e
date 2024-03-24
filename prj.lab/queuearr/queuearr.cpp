@@ -23,7 +23,7 @@ QueueArr::QueueArr(const Complex& head) {
     data_ = new Complex[capacity_];
     data_[0] = head;
 }
-/*
+
 QueueArr::QueueArr(QueueArr&& other) noexcept {
     data_ = other.data_;
     size_ = other.size_;
@@ -35,7 +35,7 @@ QueueArr::QueueArr(QueueArr&& other) noexcept {
     other.capacity_ = 0;
     other.head_ = 0;
     other.tail_ = 0;
-}*/
+}
 
 QueueArr& QueueArr::operator=(const QueueArr& other) {
     if (this != &other) {

@@ -22,6 +22,24 @@ QueueLst& QueueLst::operator=(const QueueLst& other) {
     return *this;
 }
 
+QueueLst& QueueLst::operator=(QueueLst&& other) noexcept {
+    if (this != &other) {
+        Clear();
+        head_ = other.head_;
+        tail_ = other.tail_;
+        other.head_ = nullptr;
+        other.tail_ = nullptr;
+    }
+    return *this;
+}
+
+QueueLst::QueueLst(QueueLst&& other) noexcept {
+    head_ = other.head_;
+    tail_ = other.tail_;
+    other.head_ = nullptr;
+    other.tail_ = nullptr;
+}
+
 bool QueueLst::IsEmpty() const noexcept { return nullptr == head_; }
 
 QueueLst::~QueueLst() { Clear(); }

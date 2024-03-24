@@ -35,6 +35,11 @@ StackLst::StackLst(const Complex& head) : head_{ new Node } {
     head_->data = head;
 }
 
+StackLst::StackLst(StackLst&& other) noexcept : head_{ other.head_ } {
+    other.head_ = nullptr;
+}
+
+
 StackLst::StackLst(const StackLst& other) : head_{ nullptr } {
     if (!other.IsEmpty()) {
         head_ = new Node;
@@ -70,6 +75,15 @@ StackLst& StackLst::operator=(const StackLst& other) {
             curr = temp;
         }
         head_->next = nullptr;
+    }
+    return *this;
+}
+
+StackLst& StackLst::operator=(StackLst&& other) noexcept {
+    if (this != &other) {
+        Clear();
+        head_ = other.head_;
+        other.head_ = nullptr;
     }
     return *this;
 }
