@@ -5,6 +5,20 @@
 TEST_CASE("Testing DynArr class") {
     DynArr arr(5);
 
+    SUBCASE("Constructor with move semantics") {
+        DynArr arr1(5);
+        DynArr arr2(std::move(arr1));
+        CHECK(arr2.Size() == 5);
+
+        DynArr arr3(10);
+        arr2 = std::move(arr3);
+        CHECK(arr2.Size() == 10);
+        CHECK(arr3.Size() == 0);
+
+        DynArr&& arr4 = DynArr(15);
+        CHECK(arr4.Size() == 15);
+    }
+
     SUBCASE("Testing Size method") { CHECK(arr.Size() == 5); }
 
     SUBCASE("Testing Resize method") {

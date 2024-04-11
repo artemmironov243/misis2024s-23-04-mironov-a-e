@@ -57,6 +57,7 @@ StackLst::StackLst(const StackLst& other) : head_{ nullptr } {
 }
 
 StackLst& StackLst::operator=(const StackLst& other) {
+    head_ = new Node;
     Node* curr = head_;
     Node* curr_other = other.head_;
     while (curr_other != nullptr) {
@@ -74,6 +75,7 @@ StackLst& StackLst::operator=(const StackLst& other) {
             delete curr;
             curr = temp;
         }
+        delete curr;
         head_->next = nullptr;
     }
     return *this;
