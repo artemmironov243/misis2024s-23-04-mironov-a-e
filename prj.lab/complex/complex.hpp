@@ -8,17 +8,17 @@
 #include <sstream>
 #include <stdexcept>
 struct Complex {
-	[[nodiscard]] Complex();
-	[[nodiscard]] Complex(const Complex&);
-	[[nodiscard]] explicit Complex(const double real);
-	[[nodiscard]] Complex(const double real, const double imaginary);
+	Complex();
+	Complex(const Complex&);
+	explicit Complex(const double real);
+	Complex(const double real, const double imaginary);
 	Complex(Complex&&) = default;
 	Complex& operator=(Complex&&) = default;
 
 	Complex& operator=(const Complex& other);
 	~Complex() = default;
 
-	[[nodiscard]] Complex operator-() const;
+	Complex operator-() const;
 
 	Complex operator+(const Complex& other);
 	Complex operator-(const Complex& other);
@@ -37,8 +37,8 @@ struct Complex {
 	bool operator==(const Complex& other) const;
 	bool operator!=(const Complex& other) const;
 
-	[[nodiscard]] std::ostream& writeTo(std::ostream& ostrm) const;
-	[[nodiscard]] std::istream& readFrom(std::istream& istrm);
+	std::ostream& writeTo(std::ostream& ostrm) const;
+	std::istream& readFrom(std::istream& istrm);
 
 	double re{ 0.0 };
 	double im{ 0.0 };
