@@ -55,15 +55,15 @@ Release/D:/projects/misis2023f-23-check/misis2024s-23-04-mironov-a-e/bin.check/d
 17/20 Test #17: doctest_stackarr .................   Passed    0.02 sec
 18/20 Test #18: doctest_stackarr_m ...............   Passed    0.01 sec
 19/20 Test #20: doctest_stacklst_m ...............   Passed    0.01 sec
-20/20 Test #19: doctest_stacklst .................***Failed    0.01 sec
+20/20 Test #19: doctest_stacklst .................***Timeout  10.67 sec
 
 75% tests passed, 5 tests failed out of 20
 
-Total Test time (real) =   0.07 sec
+Total Test time (real) =  10.73 sec
 
 The following tests FAILED:
 	  1 - doctest_bitset (Not Run)
 	  2 - doctest_bitset_m (Not Run)
 	  3 - doctest_complex (Failed)
 	 15 - doctest_queuelstpr (Failed)
-	 19 - doctest_stacklst (Failed)
+	 19 - doctest_stacklst (Timeout)
