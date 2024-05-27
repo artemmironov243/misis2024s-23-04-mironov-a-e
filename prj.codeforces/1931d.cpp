@@ -1,25 +1,18 @@
-#include <iostream>
-#include <vector>
-
-int main() {
-	int t = 0;
-	std::cin >> t;
-	for (int h = 0; h < t; h++) {
-		int n = 0, x = 0, y = 0, count = 0;
-		std::cin >> n >> x >> y;
-		std::vector<int> vec;
-		int val = 0;
-		for (int i = 0; i < n; i++) {
-			std::cin >> val;
-			vec.push_back(val);
+#include<bits/stdc++.h>
+using namespace std;
+long long n, x, y, c, i;
+main() {
+	int t = 1;
+	cin >> t;
+	while (t--) {
+		cin >> n >> x >> y;
+		int a[n];
+		map<int, map<int, int>>m;
+		for (i = c = 0; i < n;) {
+			cin >> a[i];
+			c += m[(x - a[i] % x) % x][a[i] % y];
+			m[a[i] % x][a[i++] % y]++;
 		}
-		for (int i = 0; i < n - 1; i++) {
-			for (int j = i + 1; j < n; j++) {
-				if ((vec[i] + vec[j]) % x == 0 && (vec[j] - vec[i]) % y == 0) {
-					count += 1;
-				}
-			}
-		}
-		std::cout << count << std::endl;
+		cout << c << '\n';
 	}
 }

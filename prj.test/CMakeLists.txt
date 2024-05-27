@@ -21,3 +21,7 @@ target_link_libraries(test_queuearr queuearr)
 
 add_executable(test_queuelstpr test_queuelstpr.cpp)
 target_link_libraries(test_queuelstpr queuelstpr)
+
+add_executable(test_stackarrt test_stackarrt.cpp)
+target_link_libraries(test_stackarrt stackarrt)
+target_link_libraries(test_stackarrt complex)
